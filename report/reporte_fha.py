@@ -1,11 +1,12 @@
 # -*- encoding: utf-8 -*-
 
 from odoo import api, models, fields
-import numpy
+import numpy_financial
 import logging
 
 class ReporteFha(models.AbstractModel):
     _name = 'report.inmobiliaria.reporte_fha'
+    _description = "Reporte FHA"
 
     def cuota_nivelada(self,data):
         cuotas = []
@@ -17,11 +18,11 @@ class ReporteFha(models.AbstractModel):
         if data['tipo_escrituracion'] == '70':
             iusi = ((((data['precio_venta'] * 0.7) / 1.12) * 0.009) / 12)
         else:
-            ((data['precio_venta'] / 1.12) * 0.09) / 12
+            iusi = ((data['precio_venta'] / 1.12) * 0.09) / 12
         saldo_capital_inicial = monto_financiar
-        for i in range(1,data['plazo_meses'] + 1):
-            pago_capital = numpy.ppmt((data['tasa_interes_conjunta']/100) / 12,i,data['plazo_meses'],-monto_financiar)
-            pago_interes = numpy.ipmt((data['tasa_interes_conjunta']/100) / 12,i,data['plazo_meses'],-monto_financiar)
+        for i in range(1,data['cantidad_cuotas_enganche'] + 1):
+            pago_capital = numpy_financial.ppmt((data['tasa_interes_conjunta']/100) / 12,i,data['cantidad_cuotas_enganche'],-monto_financiar)
+            pago_interes = numpy_financial.ipmt((data['tasa_interes_conjunta']/100) / 12,i,data['cantidad_cuotas_enganche'],-monto_financiar)
             total_cuota_mensual = pago_capital + pago_interes + seguro_contra_incendio + iusi
             if i == 1:
                 saldo_capital = saldo_capital_inicial - pago_capital
@@ -42,7 +43,7 @@ class ReporteFha(models.AbstractModel):
 
 
     @api.model
-    def get_report_values(self, docids, data=None):
+    def _get_report_values(self, docids, data=None):
         model = self.env.context.get('active_model')
         docs = self.env[model].browse(self.env.context.get('active_ids', []))
 

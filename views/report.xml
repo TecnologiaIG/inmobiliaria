@@ -13,7 +13,7 @@
                             <!-- <field name="lead_id"/> -->
                             <field name="precio_venta"/>
                             <field name="enganche"/>
-                            <field name="plazo_meses"/>
+                            <field name="cantidad_cuotas_enganche"/>
                         </group>
                         <group>
                             <field name="tasa_interes_conjunta"/>
@@ -35,9 +35,21 @@
             </field>
         </record>
 
-        <act_window id="window_reporte_fha" name="Cotizacion FHA" res_model="inmobiliaria.asistente_reporte_fha" src_model="crm.lead" view_mode="form" target="new"/>
+        <record id="window_reporte_fha" model="ir.actions.act_window">
+            <field name="name">Cotizacion FHA</field>
+            <field name="res_model">inmobiliaria.asistente_reporte_fha</field>
+            <field name="view_mode">form</field>
+            <field name="binding_model_id" ref="crm.model_crm_lead"/>
+            <field name="target">new</field>
+        </record>
+        <record id="action_reporte_fha" model="ir.actions.report">
+            <field name="name">inmobiliaria.reporte_fha</field>
+            <field name="model">inmobiliaria.asistente_reporte_fha</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">inmobiliaria.reporte_fha</field>
+            <field name="report_file">inmobiliaria.reporte_fha</field>
+        </record>
         <menuitem action="window_reporte_fha" id="menu_asistente_reporte_fha" parent="crm.crm_menu_report"/>
-        <report id="action_reporte_fha" model="inmobiliaria.asistente_reporte_fha" string="Cotizacion FHA" report_type="qweb-pdf" name="inmobiliaria.reporte_fha" file="inmobiliaria.reporte_fha"/>
 
     </data>
 </odoo>

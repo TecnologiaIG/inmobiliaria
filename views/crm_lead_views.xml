@@ -1,47 +1,51 @@
 <?xml version="1.0"?>
 <odoo>
 
-    <record id="inmobiliaria_crm_case_form_view_oppor" model="ir.ui.view">
-        <field name="name">inmobiliaria.crm.lead.form.opportunity</field>
+    <record id="crm_lead_view_form" model="ir.ui.view">
+        <field name="name">crm.lead.form.inherit.inmobiliaria</field>
         <field name="model">crm.lead</field>
-        <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
         <field name="arch" type="xml">
-            <page name="lead" position="after">
+            <notebook position="inside">
                 <page name="inmobiliaria" string="Inmobiliaria">
                     <group>
-                        <group>
+                        <group string="Inmueble">
                             <field name="inmueble_id"/>
-                            <field name="bodega_id"/>
-                            <field name="precio_metros_cuadrados"/>
+                            <!--<field name="bodega_id"/>-->
+                            <field name="precio_por_metro_cuadrado"/>
                             <field name="total_inmueble"/>
+                            <br/>
+                            <field name="gastos_escrituracion"/>
                         </group>
-                        <group>
+                        <group string="Parqueo">
                             <field name="parqueo_ids" widget="many2many_tags"/>
                             <field name="numero_parqueos"/>
                             <field name="total_parqueo"/>
                         </group>
-                        <group>
+                        <group string="Reserva">
+                            <field name="reserva_total"/>
+                            <field name="cuota_reserva"/> 
+                            <field name="cantidad_cuotas_reserva"/> 
+                        </group>
+                        <group string="Enganche">
+                            <field name="enganche_total"/>
+                            <field name="enganche_menos_reserva"/>
+                            <field name="cuota_enganche"/>
+                            <field name="cantidad_cuotas_enganche"/>
+                        </group>
+                        <group string="Financiamiento">
+                            <field name="saldo_financiar"/>
+                            <field name="tasa_interes_anual"/>
+                        </group>
+                        <group string="Totales">
                             <field name="iva"/>
                             <field name="total"/>
                             <field name="gran_total"/>
-                            <field name="fecha_pactada_abonos"/>
-                        </group>
-                        <group>
-                            <field name="enganche_reserva"/>
-                            <field name="enganche_total"/>
-                            <field name="cuota_enganche"/>
-                            <field name="saldo_financiar"/>
-                            <field name="plazo_meses"/>
-                        </group>
-                        <group>
-                            <field name="gastos_escrituracion"/>
-                            <field name="reserva"/>
-                            <field name="tipo_cambio"/>
-                            <field name="tasa_interes_anual"/>
+                            <!--<field name="fecha_pactada_abonos"/>-->
                         </group>
                     </group>
                 </page>
-            </page>
+            </notebook>
         </field>
     </record>
 

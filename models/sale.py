@@ -3,31 +3,20 @@
 
 import uuid
 
-from itertools import groupby
-from datetime import datetime, timedelta
-from werkzeug.urls import url_encode
-
 from odoo import api, fields, models, _
-from odoo.exceptions import UserError, AccessError
-from odoo.osv import expression
-from odoo.tools import float_is_zero, float_compare, DEFAULT_SERVER_DATETIME_FORMAT
-
-from odoo.tools.misc import formatLang
-
-from odoo.addons import decimal_precision as dp
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    lead_id = fields.Many2one('crm.lead','Oportunidad')
+    #lead_id = fields.Many2one('crm.lead','Oportunidad')
     banco_id = fields.Many2one('account.journal','Banco')
     fecha_inicio = fields.Date('Fecha de inicio')
 
-    @api.onchange('lead_id')
+    @api.onchange('opportunity_id')
     def check_change(self):
-        if self.lead_id:
+        if self.opportunity_id:
             lineas = []
-            for oportunidad in self.lead_id:
+            for oportunidad in self.opportunity_id:
                 lineas.append((0,0,{'product_id': oportunidad.inmueble_id.id,'name': oportunidad.inmueble_id.name,'product_uom':oportunidad.inmueble_id.product_tmpl_id.uom_id ,'product_uom_qty': 1,'price_unit':  oportunidad.inmueble_id.list_price}))
                 if oportunidad.parqueo_ids:
                     for parqueo in oportunidad.parqueo_ids:

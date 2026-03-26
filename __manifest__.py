@@ -12,9 +12,9 @@
     'website': "http://www.aquih.com",
 
     'category': 'Uncategorized',
-    'version': '0.1',
+    'version': '0.2',
 
-    'depends': ['crm','sale'],
+    'depends': ['base','crm','sale','sale_crm'],
 
     'data': [
         'views/crm_lead_views.xml',
@@ -24,5 +24,7 @@
         'views/account_payment_view.xml',
         'views/report.xml',
         'views/reporte_fha.xml',
+        'security/ir.model.access.csv',
     ],
+    'license': 'LGPL-3',
 }

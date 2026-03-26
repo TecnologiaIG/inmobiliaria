@@ -3,226 +3,226 @@
 
     <template id="reporte_fha">
         <t t-call="web.html_container">
-            <div class="article">
-                <div class="header">
-                </div>
-                <div class="page">
-                    <t t-set="porcentaje_enganche" t-value="(data['enganche'] / data['precio_venta']) * 100"/>
-                    <t t-set="monto_financiar" t-value="data['precio_venta'] - data['enganche']"/>
-                    <t t-set="monto_construccion" t-value="(data['precio_venta'] * 0.70)"/>
-                    <t t-set="derecho_solicitud" t-value="monto_financiar * 0.005"/>
-                    <t t-set="prima_fha" t-value="monto_financiar * 0.0143"/>
-                    <t t-if="data['tipo_escrituracion'] == '70' ">
-                        <t t-set="pago_iva" t-value="((data['precio_venta'] * 0.7) / 1.12) * 0.12"/>
-                    </t>
-                    <t t-else="">
-                        <t t-set="pago_iva" t-value="(data['precio_venta'] / 1.12) * 0.12"/>
-                    </t>
-                    <t t-set="total" t-value="derecho_solicitud + prima_fha + pago_iva + data['gasto_escrituracion'] + data['otros']"/>
-                    <table style="margin: 0px auto;border: 1px solid black">
-                        <tr>
-                            <td style="height:25px;"></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td style="width:15px;height:75px;"></td>
-                            <td colspan="2"><img align="center" src="/inmobiliaria/static/src/img/fha_logo.png" style="height: 50px; weight:50px"/></td>
-                            <td colspan="3"><h3><b>Proyección para Casos Proyectados</b></h3></td>
-                            <td style="width:15px"></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td style="border: 1px solid black;text-align:center;color:white;background-color:#000080" colspan="2"><b>Condiciones del Prestamo Hipotecario</b></td>
-                            <td style="width:15px;"></td>
-                            <td style="border: 1px solid black;text-align:center;color:white;background-color:#000080" colspan="2"><b>Gastos Indirectos</b></td>
-                            <td style="width:15px;"></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td style="border: 1px solid black;"><b>Precio de Venta:</b></td>
-                            <td style="border: 1px solid black;background-color:#00cc00;"><b>Q.<span t-esc="data['precio_venta']" t-options='{"widget":"float","precision":2}'/></b></td>
-                            <td></td>
-                            <td style="border: 1px solid black;"><b>Derechos de Solicitud (5 por Millar del Monto a Financiar):</b></td>
-                            <td style="border: 1px solid black;"><b>Q.<span t-esc="derecho_solicitud" t-options='{"widget":"float","precision":2}'/></b></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td style="border: 1px solid black;"><b>Enganche:</b></td>
-                            <td style="border: 1px solid black;background-color:#00cc00;"><b>Q.<span t-esc="data['enganche']" t-options='{"widget":"float","precision":2}'/></b></td>
-                            <td></td>
-                            <td style="border: 1px solid black;"><b>Prima FHA:</b></td>
-                            <td style="border: 1px solid black;"><b>Q.<span t-esc="prima_fha" t-options='{"widget":"float","precision":2}'/></b></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td style="border: 1px solid black;"><b>Porcentaje de Enganche:</b></td>
-                            <td style="border: 1px solid black;"><b><span t-esc="porcentaje_enganche" t-options='{"widget":"float","precision":2}'/>%</b></td>
-                            <td></td>
-                            <td style="border: 1px solid black;"><b>Pago de IVA:</b></td>
-                            <td style="border: 1px solid black;"><b>Q.<span t-esc="pago_iva" t-options='{"widget":"float","precision":2}'/></b></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td style="border: 1px solid black;"><b>Monto a Financiar:</b></td>
-                            <td style="border: 1px solid black;"><b>Q.<span t-esc="monto_financiar" t-options='{"widget":"float","precision":2}'/></b></td>
-                            <td></td>
-                            <td style="border: 1px solid black;"><b>Gastos de Escrituración:</b></td>
-                            <td style="border: 1px solid black;background-color:#00cc00;"><b>Q.<span t-esc="data['gasto_escrituracion']" t-options='{"widget":"float","precision":2}'/></b></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td style="border: 1px solid black;"><b>Plazo en Meses:</b></td>
-                            <td style="border: 1px solid black;background-color:#00cc00;"><b>Q.<span t-esc="data['plazo_meses']" t-options='{"widget":"float","precision":2}'/></b></td>
-                            <td></td>
-                            <td style="border: 1px solid black;"><b>Otros:</b></td>
-                            <td style="border: 1px solid black;background-color:#00cc00;"><b>Q.<span t-esc="data['otros']" t-options='{"widget":"float","precision":2}'/></b></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td style="border: 1px solid black;"><b>Tasa de Interes Conjunta:</b></td>
-                            <td style="border: 1px solid black;background-color:#00cc00;"><b><span t-esc="data['tasa_interes_conjunta']" t-options='{"widget":"float","precision":2}'/>%</b></td>
-                            <td></td>
-                            <td style="border: 1px solid black;"><b>Total:</b></td>
-                            <td style="border: 1px solid black;"><b>Q.<span t-esc="total"/></b></td>
-                            <td></td>
-                        </tr>
-                        <tr style="height:10px;">
-                            <td></td>
-                            <td style="border: 1px solid black;"><b>Prima del Seguro Contra Incendios:</b></td>
-                            <td style="border: 1px solid black;background-color:#00cc00;"><b><span t-esc="data['prima_contra_incendios']"/>%</b></td>
-                            <td colspan="4"></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td style="border: 1px solid black;"><b>Monto de Construcción:</b></td>
-                            <td style="border: 1px solid black;background-color:#00cc00;"><b>Q.<span t-esc="monto_construccion" t-options='{"widget":"float","precision":2}'/></b></td>
-                            <td colspan="4"></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td style="border: 1px solid black;"><b>Relación Cuota - Ingresos Máxima:</b></td>
-                            <td style="border: 1px solid black;background-color:#00cc00;"><b>Q.<span t-esc="data['relacion_cuota_ingreso_maxima']" t-options='{"widget":"float","precision":2}'/>%</b></td>
-                            <td colspan="4"></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td style="border: 1px solid black;"><b>Tipo de Escrituración:</b></td>
-                            <td style="border: 1px solid black;background-color:#00cc00;"><b><span t-esc="data['tipo_escrituracion']"/></b></td>
-                            <td colspan="4"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="7" style="height:25px;"></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td colspan="5" style="height:50px;text-align:center;background-color:#00cc00;"><b>"FAVOR INGRESAR LOS DATOS REQUERIDOS EN LAS CELDAS COLOR VERDE"</b></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td colspan="7" style="height:15px;"></td>
-                        </tr>
-                    </table>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <table style="margin: 0px auto;">
-                        <tr>
-                            <td style="text-align:center;" colspan="7"><b>CALCULO APROXIMADO DE LA CUOTA NIVELADA</b></td>
-                        </tr>
-                        <tr style="height:15px;">
-                        </tr>
-                        <tr>
-                            <td rowspan="8" colspan="4"><img align="center" src="/inmobiliaria/static/src/img/fha_logo.png" style="height: 50px; weight:50px"/></td>
-                            <tr>
-                                <td style="border: 1px solid black;" colspan="2"><b>Precio de Venta:</b></td>
-                                <td style="border: 1px solid black;"><b>Q.<span t-esc="data['precio_venta']" t-options='{"widget":"float","precision":2}'/></b></td>
-                            </tr>
-                        </tr>
-                        <tr>
-                            <td style="border: 1px solid black;" colspan="2"><b>Enganche:</b></td>
-                            <td style="border: 1px solid black;"><b>Q.<span t-esc="data['enganche']" t-options='{"widget":"float","precision":2}'/></b></td>
-                        </tr>
-                        <tr>
-                            <td style="border: 1px solid black;" colspan="2"><b>Porcentaje de Enganche:</b></td>
-                            <td style="border: 1px solid black;"><b><span t-esc="porcentaje_enganche" t-options='{"widget":"float","precision":2}'/>%</b></td>
-                        </tr>
-                        <tr>
-                            <td style="border: 1px solid black;" colspan="2"><b>Monto a Financiar:</b></td>
-                            <td style="border: 1px solid black;"><b>Q.<span t-esc="monto_financiar" t-options='{"widget":"float","precision":2}'/></b></td>
-                        </tr>
-                        <tr>
-                            <td style="border: 1px solid black;" colspan="2"><b>Tasa de Interes:</b></td>
-                            <td style="border: 1px solid black;"><b><span t-esc="data['tasa_interes_conjunta']"/></b></td>
-                        </tr>
-                        <tr>
-                            <td style="border: 1px solid black;" colspan="2"><b>Plazo en Meses:</b></td>
-                            <td style="border: 1px solid black;"><b><span t-esc="data['plazo_meses']"/></b></td>
-                        </tr>
-                        <tr>
-                            <td style="border: 1px solid black;" colspan="2"><b>Ingresos Netos Mínimos:</b></td>
-                            <t t-foreach="cuota_nivelada(data)" t-as="cuota">
-                                <t t-if="cuota['mes'] == 1">
-                                    <t t-set="total_cuota" t-value="cuota['total_cuota_mensual'] / (data['relacion_cuota_ingreso_maxima'] / 100)"/>/>
-                                    <td style="border: 1px solid black;"><b><span t-esc="total_cuota" t-options='{"widget":"float","precision":2}'/></b></td>
-                                </t>
-                            </t>
-                        </tr>
-                    </table>
-                    <br/>
-                    <br/>
-                    <table>
-                        <tr>
-                            <td style="text-align: center;border: 1px solid black;"><b>No. De Cuota</b></td>
-                            <td style="text-align: center;border: 1px solid black;"><b>Pago de Capital</b></td>
-                            <td style="text-align: center;border: 1px solid black;"><b>Pago de Intereses</b></td>
-                            <td style="text-align: center;border: 1px solid black;"><b>Seguro Contra Incendio</b></td>
-                            <td style="text-align: center;border: 1px solid black;"><b>IUSI</b></td>
-                            <td style="text-align: center;border: 1px solid black;"><b>Total de la Cuota Mensual</b></td>
-                            <td style="text-align: center;border: 1px solid black;"><b>Saldo del Capital</b></td>
-                        </tr>
-                        <tr style="height:15px;">
-                        </tr>
-                        <t t-set="saldo_capital" t-value="monto_financiar"/>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td style="text-align:right;border: 1px solid black;"><span t-esc="monto_financiar"/></td>
-                        </tr>
-                        <t t-set="mes" t-value="0"/>
+            <t t-foreach="docs" t-as="o">
+                <div class="article">
+                    <div class="page">
+                        <t t-set="porcentaje_enganche" t-value="(data['enganche'] / data['precio_venta']) * 100"/>
+                        <t t-set="monto_financiar" t-value="data['precio_venta'] - data['enganche']"/>
+                        <t t-set="monto_construccion" t-value="(data['precio_venta'] * 0.70)"/>
+                        <t t-set="derecho_solicitud" t-value="monto_financiar * 0.005"/>
+                        <t t-set="prima_fha" t-value="monto_financiar * 0.0143"/>
                         <t t-if="data['tipo_escrituracion'] == '70' ">
-                            <t t-set="iusi" t-value="((((data['precio_venta'] * 0.7) / 1.12) * 0.009) / 12)"/>
+                            <t t-set="pago_iva" t-value="((data['precio_venta'] * 0.7) / 1.12) * 0.12"/>
                         </t>
                         <t t-else="">
-                            <t t-set="iusi" t-value="((data['precio_venta'] / 1.12) * 0.09) / 12"/>
+                            <t t-set="pago_iva" t-value="(data['precio_venta'] / 1.12) * 0.12"/>
                         </t>
-                        <t t-set="seguro_contra_incendio" t-value="((monto_construccion * data['prima_contra_incendios']) / 12) /100"/>
-                        <tr t-foreach="cuota_nivelada(data)" t-as="cuota">
-                            <td style="border: 1px solid black;"><span t-esc="cuota['mes']"/></td>
-                            <td style="text-align:right;border: 1px solid black;">Q.<span t-esc="cuota['pago_capital']" t-options='{"widget":"float","precision":2}'/></td>
-                            <td style="text-align:right;border: 1px solid black;">Q.<span t-esc="cuota['pago_interes']" t-options='{"widget":"float","precision":2}'/></td>
-                            <td style="text-align:right;border: 1px solid black;">Q.<span t-esc="cuota['seguro_contra_incendio']" t-options='{"widget":"float","precision":2}'/></td>
-                            <td style="text-align:right;border: 1px solid black;">Q.<span t-esc="cuota['iusi']" t-options='{"widget":"float","precision":2}'/></td>
-                            <td style="text-align:right;border: 1px solid black;">Q.<span t-esc="cuota['total_cuota_mensual']" t-options='{"widget":"float","precision":2}'/></td>
-                            <td style="text-align:right;border: 1px solid black;">Q.<span t-esc="cuota['saldo_capital']" t-options='{"widget":"float","precision":2}'/></td>
-                        </tr>
-                    </table>
+                        <t t-set="total" t-value="derecho_solicitud + prima_fha + pago_iva + data['gasto_escrituracion'] + data['otros']"/>
+                        <table style="margin: 0px auto;border: 1px solid black">
+                            <tr>
+                                <td style="height:25px;"></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td style="width:15px;height:75px;"></td>
+                                <td colspan="2"><img align="center" src="/inmobiliaria/static/src/img/fha_logo.png" style="height: 50px; weight:50px"/></td>
+                                <td colspan="3"><h3><b>Proyección para Casos Proyectados</b></h3></td>
+                                <td style="width:15px"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="border: 1px solid black;text-align:center;color:white;background-color:#000080" colspan="2"><b>Condiciones del Prestamo Hipotecario</b></td>
+                                <td style="width:15px;"></td>
+                                <td style="border: 1px solid black;text-align:center;color:white;background-color:#000080" colspan="2"><b>Gastos Indirectos</b></td>
+                                <td style="width:15px;"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="border: 1px solid black;"><b>Precio de Venta:</b></td>
+                                <td style="border: 1px solid black;background-color:#00cc00;"><b>Q.<span t-esc="data['precio_venta']" t-options='{"widget":"float","precision":2}'/></b></td>
+                                <td></td>
+                                <td style="border: 1px solid black;"><b>Derechos de Solicitud (5 por Millar del Monto a Financiar):</b></td>
+                                <td style="border: 1px solid black;"><b>Q.<span t-esc="derecho_solicitud" t-options='{"widget":"float","precision":2}'/></b></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="border: 1px solid black;"><b>Enganche:</b></td>
+                                <td style="border: 1px solid black;background-color:#00cc00;"><b>Q.<span t-esc="data['enganche']" t-options='{"widget":"float","precision":2}'/></b></td>
+                                <td></td>
+                                <td style="border: 1px solid black;"><b>Prima FHA:</b></td>
+                                <td style="border: 1px solid black;"><b>Q.<span t-esc="prima_fha" t-options='{"widget":"float","precision":2}'/></b></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="border: 1px solid black;"><b>Porcentaje de Enganche:</b></td>
+                                <td style="border: 1px solid black;"><b><span t-esc="porcentaje_enganche" t-options='{"widget":"float","precision":2}'/>%</b></td>
+                                <td></td>
+                                <td style="border: 1px solid black;"><b>Pago de IVA:</b></td>
+                                <td style="border: 1px solid black;"><b>Q.<span t-esc="pago_iva" t-options='{"widget":"float","precision":2}'/></b></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="border: 1px solid black;"><b>Monto a Financiar:</b></td>
+                                <td style="border: 1px solid black;"><b>Q.<span t-esc="monto_financiar" t-options='{"widget":"float","precision":2}'/></b></td>
+                                <td></td>
+                                <td style="border: 1px solid black;"><b>Gastos de Escrituración:</b></td>
+                                <td style="border: 1px solid black;background-color:#00cc00;"><b>Q.<span t-esc="data['gasto_escrituracion']" t-options='{"widget":"float","precision":2}'/></b></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="border: 1px solid black;"><b>Plazo en Meses:</b></td>
+                                <td style="border: 1px solid black;background-color:#00cc00;"><b>Q.<span t-esc="data['cantidad_cuotas_enganche']" t-options='{"widget":"float","precision":2}'/></b></td>
+                                <td></td>
+                                <td style="border: 1px solid black;"><b>Otros:</b></td>
+                                <td style="border: 1px solid black;background-color:#00cc00;"><b>Q.<span t-esc="data['otros']" t-options='{"widget":"float","precision":2}'/></b></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="border: 1px solid black;"><b>Tasa de Interes Conjunta:</b></td>
+                                <td style="border: 1px solid black;background-color:#00cc00;"><b><span t-esc="data['tasa_interes_conjunta']" t-options='{"widget":"float","precision":2}'/>%</b></td>
+                                <td></td>
+                                <td style="border: 1px solid black;"><b>Total:</b></td>
+                                <td style="border: 1px solid black;"><b>Q.<span t-esc="total"/></b></td>
+                                <td></td>
+                            </tr>
+                            <tr style="height:10px;">
+                                <td></td>
+                                <td style="border: 1px solid black;"><b>Prima del Seguro Contra Incendios:</b></td>
+                                <td style="border: 1px solid black;background-color:#00cc00;"><b><span t-esc="data['prima_contra_incendios']"/>%</b></td>
+                                <td colspan="4"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="border: 1px solid black;"><b>Monto de Construcción:</b></td>
+                                <td style="border: 1px solid black;background-color:#00cc00;"><b>Q.<span t-esc="monto_construccion" t-options='{"widget":"float","precision":2}'/></b></td>
+                                <td colspan="4"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="border: 1px solid black;"><b>Relación Cuota - Ingresos Máxima:</b></td>
+                                <td style="border: 1px solid black;background-color:#00cc00;"><b>Q.<span t-esc="data['relacion_cuota_ingreso_maxima']" t-options='{"widget":"float","precision":2}'/>%</b></td>
+                                <td colspan="4"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="border: 1px solid black;"><b>Tipo de Escrituración:</b></td>
+                                <td style="border: 1px solid black;background-color:#00cc00;"><b><span t-esc="data['tipo_escrituracion']"/></b></td>
+                                <td colspan="4"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="7" style="height:25px;"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td colspan="5" style="height:50px;text-align:center;background-color:#00cc00;"><b>"FAVOR INGRESAR LOS DATOS REQUERIDOS EN LAS CELDAS COLOR VERDE"</b></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="7" style="height:15px;"></td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <table style="margin: 0px auto;">
+                            <tr>
+                                <td style="text-align:center;" colspan="7"><b>CALCULO APROXIMADO DE LA CUOTA NIVELADA</b></td>
+                            </tr>
+                            <tr style="height:15px;">
+                            </tr>
+                            <tr>
+                                <td rowspan="8" colspan="4"><img align="center" src="/inmobiliaria/static/src/img/fha_logo.png" style="height: 50px; weight:50px"/></td>
+                                <tr>
+                                    <td style="border: 1px solid black;" colspan="2"><b>Precio de Venta:</b></td>
+                                    <td style="border: 1px solid black;"><b>Q.<span t-esc="data['precio_venta']" t-options='{"widget":"float","precision":2}'/></b></td>
+                                </tr>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid black;" colspan="2"><b>Enganche:</b></td>
+                                <td style="border: 1px solid black;"><b>Q.<span t-esc="data['enganche']" t-options='{"widget":"float","precision":2}'/></b></td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid black;" colspan="2"><b>Porcentaje de Enganche:</b></td>
+                                <td style="border: 1px solid black;"><b><span t-esc="porcentaje_enganche" t-options='{"widget":"float","precision":2}'/>%</b></td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid black;" colspan="2"><b>Monto a Financiar:</b></td>
+                                <td style="border: 1px solid black;"><b>Q.<span t-esc="monto_financiar" t-options='{"widget":"float","precision":2}'/></b></td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid black;" colspan="2"><b>Tasa de Interes:</b></td>
+                                <td style="border: 1px solid black;"><b><span t-esc="data['tasa_interes_conjunta']"/></b></td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid black;" colspan="2"><b>Plazo en Meses:</b></td>
+                                <td style="border: 1px solid black;"><b><span t-esc="data['cantidad_cuotas_enganche']"/></b></td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid black;" colspan="2"><b>Ingresos Netos Mínimos:</b></td>
+                                <t t-foreach="cuota_nivelada(data)" t-as="cuota">
+                                    <t t-if="cuota['mes'] == 1">
+                                        <t t-set="total_cuota" t-value="cuota['total_cuota_mensual'] / (data['relacion_cuota_ingreso_maxima'] / 100)"/>/>
+                                        <td style="border: 1px solid black;"><b><span t-esc="total_cuota" t-options='{"widget":"float","precision":2}'/></b></td>
+                                    </t>
+                                </t>
+                            </tr>
+                        </table>
+                        <br/>
+                        <br/>
+                        <table>
+                            <tr>
+                                <td style="text-align: center;border: 1px solid black;"><b>No. De Cuota</b></td>
+                                <td style="text-align: center;border: 1px solid black;"><b>Pago de Capital</b></td>
+                                <td style="text-align: center;border: 1px solid black;"><b>Pago de Intereses</b></td>
+                                <td style="text-align: center;border: 1px solid black;"><b>Seguro Contra Incendio</b></td>
+                                <td style="text-align: center;border: 1px solid black;"><b>IUSI</b></td>
+                                <td style="text-align: center;border: 1px solid black;"><b>Total de la Cuota Mensual</b></td>
+                                <td style="text-align: center;border: 1px solid black;"><b>Saldo del Capital</b></td>
+                            </tr>
+                            <tr style="height:15px;">
+                            </tr>
+                            <t t-set="saldo_capital" t-value="monto_financiar"/>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td style="text-align:right;border: 1px solid black;"><span t-esc="monto_financiar"/></td>
+                            </tr>
+                            <t t-set="mes" t-value="0"/>
+                            <t t-if="data['tipo_escrituracion'] == '70' ">
+                                <t t-set="iusi" t-value="((((data['precio_venta'] * 0.7) / 1.12) * 0.009) / 12)"/>
+                            </t>
+                            <t t-else="">
+                                <t t-set="iusi" t-value="((data['precio_venta'] / 1.12) * 0.09) / 12"/>
+                            </t>
+                            <t t-set="seguro_contra_incendio" t-value="((monto_construccion * data['prima_contra_incendios']) / 12) /100"/>
+                            <tr t-foreach="cuota_nivelada(data)" t-as="cuota">
+                                <td style="border: 1px solid black;"><span t-esc="cuota['mes']"/></td>
+                                <td style="text-align:right;border: 1px solid black;">Q.<span t-esc="cuota['pago_capital']" t-options='{"widget":"float","precision":2}'/></td>
+                                <td style="text-align:right;border: 1px solid black;">Q.<span t-esc="cuota['pago_interes']" t-options='{"widget":"float","precision":2}'/></td>
+                                <td style="text-align:right;border: 1px solid black;">Q.<span t-esc="cuota['seguro_contra_incendio']" t-options='{"widget":"float","precision":2}'/></td>
+                                <td style="text-align:right;border: 1px solid black;">Q.<span t-esc="cuota['iusi']" t-options='{"widget":"float","precision":2}'/></td>
+                                <td style="text-align:right;border: 1px solid black;">Q.<span t-esc="cuota['total_cuota_mensual']" t-options='{"widget":"float","precision":2}'/></td>
+                                <td style="text-align:right;border: 1px solid black;">Q.<span t-esc="cuota['saldo_capital']" t-options='{"widget":"float","precision":2}'/></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-            </div>
+            </t>
         </t>
     </template>
 

@@ -10,8 +10,7 @@
                 <field name="lang" position="after">
                     <field name="estado_civil"/>
                     <field name="nacionalidad"/>
-                    <!-- <field name="profersion"/> -->
-                    <field name="dpi"/>
+                    <!-- <field name="dpi"/> -->
                     <field name="fecha_nacimiento"/>
                     <field name="edad"/>
                     <field name="direccion_correspondencia"/>

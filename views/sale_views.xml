@@ -6,7 +6,7 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
                 <field name="analytic_account_id" position="after">
-                    <field name="lead_id"/>
+                    <!--<field name="lead_id"/>-->
                     <field name="fecha_inicio"/>
                     <field name="banco_id"/>
                 </field>
@@ -19,7 +19,7 @@
             <field name="inherit_id" ref="sale.view_order_tree"/>
             <field name="arch" type="xml">
                 <field name="name" position="after">
-                    <field name="lead_id"/>
+                    <field name="opportunity_id"/>
                 </field>
             </field>
         </record>
@@ -30,7 +30,7 @@
             <field name="inherit_id" ref="sale.view_quotation_tree"/>
             <field name="arch" type="xml">
                 <field name="name" position="after">
-                    <field name="lead_id"/>
+                    <field name="opportunity_id"/>
                 </field>
             </field>
         </record>

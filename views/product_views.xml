@@ -8,10 +8,16 @@
         <field name="priority" eval="8" />
         <field name="inherit_id" ref="product.product_template_only_form_view"/>
         <field name="arch" type="xml">
-            <field name="barcode" position="after">
-                <field name="nivel"/>
-                <field name="metros_cuadrados"/>
-            </field>
+            <notebook position="inside">
+                <page name="inmobiliaria" string="Inmobiliaria">
+                    <group>
+                        <group>
+                            <field name="nivel"/>
+                            <field name="metros_cuadrados"/>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
         </field>
     </record>
 
