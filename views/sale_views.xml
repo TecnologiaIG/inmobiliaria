@@ -5,7 +5,10 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
-                <field name="analytic_account_id" position="after">
+                <!-- v19: 'analytic_account_id' was removed from sale.order
+                     (analytics now managed at line level via analytic_distribution);
+                     anchor on payment_term_id which is still present in the form -->
+                <field name="payment_term_id" position="after">
                     <!--<field name="lead_id"/>-->
                     <field name="fecha_inicio"/>
                     <field name="banco_id"/>

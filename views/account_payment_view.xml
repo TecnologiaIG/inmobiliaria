@@ -7,7 +7,9 @@
             <field name="model">account.payment</field>
             <field name="inherit_id" ref="account.view_account_payment_form"/>
             <field name="arch" type="xml">
-                <field name="ref" position="after">
+                <!-- v19: 'ref' field removed from account.payment form;
+                     anchor on partner_id which still exists -->
+                <field name="partner_id" position="after">
                     <field name="sale_id"/>
                     <field name="descripcion"/>
                     <field name="cheque"/>
