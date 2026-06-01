@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
 
-        <record id="view_account_payment_form" model="ir.ui.view">
-            <field name="name">account.payment.form.inherit.inmobiliaria</field>
-            <field name="model">account.payment</field>
-            <field name="inherit_id" ref="account.view_account_payment_form"/>
-            <field name="arch" type="xml">
-                <field name="ref" position="after">
-                    <field name="sale_id"/>
-                    <field name="descripcion"/>
-                    <field name="cheque"/>
-                    <field name="boleta"/>
-                    <field name="fecha_boleta"/>
-                </field>
-                <field name="payment_type" position="after">
-                    <field name="es_anticipo"
-                           attrs="{'invisible': ['|', ('payment_type', '!=', 'inbound'), ('partner_type', '!=', 'customer')]}"/>
-                </field>
+    <record id="view_account_payment_form" model="ir.ui.view">
+        <field name="name">account.payment.form.inherit.inmobiliaria</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <field name="ref" position="after">
+                <field name="sale_id"/>
+                <field name="descripcion"/>
+                <field name="cheque"/>
+                <field name="boleta"/>
+                <field name="fecha_boleta"/>
             </field>
-        </record>
+            <field name="payment_type" position="after">
+                <field name="es_anticipo"
+                       invisible="payment_type != 'inbound' or partner_type != 'customer'"/>
+            </field>
+        </field>
+    </record>
 
-    </data>
 </odoo>
