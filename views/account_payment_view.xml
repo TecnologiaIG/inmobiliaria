@@ -16,7 +16,7 @@
                 </field>
                 <field name="payment_type" position="after">
                     <field name="es_anticipo"
-                           attrs="{'invisible': ['|', ('payment_type', '!=', 'inbound'), ('partner_type', '!=', 'customer')]}"/>
+                           invisible="payment_type != 'inbound' or partner_type != 'customer'"/>
                 </field>
             </field>
         </record>
