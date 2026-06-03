@@ -1,9 +1,17 @@
 import logging
-from odoo.upgrade import util
 
 _logger = logging.getLogger(__name__)
 
 
 def migrate(cr, version):
-    util.remove_field(cr, 'crm.lead', 'bodega_id')
+    cr.execute("""
+        DO $$
+        BEGIN
+            BEGIN
+                ALTER TABLE crm_lead DROP COLUMN IF EXISTS bodega_id;
+            EXCEPTION WHEN OTHERS THEN
+                RAISE NOTICE 'Error dropping bodega_id: %', SQLERRM;
+            END;
+        END $$;
+    """)
     _logger.info("Campos borrados")
