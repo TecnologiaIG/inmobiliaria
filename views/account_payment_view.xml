@@ -12,8 +12,11 @@
                 <field name="boleta"/>
                 <field name="fecha_boleta"/>
             </field>
+            <!-- Flujo legacy de anticipos reemplazado por el catálogo de tipos
+                 (account_advance_payment). El campo se conserva por los pagos
+                 históricos pero ya no se ofrece en el formulario. -->
             <field name="payment_type" position="after">
-                <field name="es_anticipo"/>
+                <field name="es_anticipo" invisible="1"/>
             </field>
         </field>
     </record>

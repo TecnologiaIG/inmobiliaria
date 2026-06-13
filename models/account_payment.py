@@ -40,9 +40,14 @@ class AccountPayment(models.Model):
             super(AccountPayment, regular)._compute_destination_account_id()
 
         for payment in anticipos:
-            account = self.env['account.account'].search([
+            # Odoo 19: account.account ya no tiene company_id (ahora company_ids)
+            # y ``code`` es company-dependent; with_company resuelve el código
+            # sobre la compañía del pago.
+            account = self.env['account.account'].with_company(
+                payment.company_id
+            ).search([
                 ('code', '=', '2201.01.01'),
-                ('company_id', '=', payment.company_id.id),
+                ('company_ids', 'in', payment.company_id.id),
             ], limit=1)
             if account:
                 payment.destination_account_id = account
