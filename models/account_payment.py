@@ -7,7 +7,26 @@ from odoo.exceptions import UserError, ValidationError
 class AccountPayment(models.Model):
     _inherit = "account.payment"
 
-    sale_id = fields.Many2one('sale.order', 'Venta')
+    sale_id = fields.Many2one(
+        'sale.order',
+        'Venta',
+        # FIX ticket #3940 (Karen O. 2026-06-23): al seleccionar cliente e intentar
+        # "jalar la oportunidad" en el pago, el dropdown mostraba TODAS las
+        # ventas de TODOS los clientes — p.ej. para Moisés Simón (cliente de
+        # VV-1701/1601/1604) aparecían también VV-1707 de su esposa Mónica.
+        # Causa raíz: este override redeclara `sale_id` SIN domain, reemplazando
+        # el dominio nativo de Odoo (que filtraba por `commercial_partner_id`).
+        # Restauramos un domain equivalente al `_onchange_partner_id_autofill_…
+        # sale_order` de `account_payment_receipt`: filtra por comercial partner
+        # + child_ids, estados 'sale' o 'draft' (enganche), y multi-company.
+        domain=(
+            "[('partner_id', 'child_of', commercial_partner_id),"
+            " ('state', 'in', ['sale', 'draft']),"
+            " ('company_id', 'in', [False, company_id])]"
+        ),
+        help='Venta (sale.order) asociada a este pago. '
+             'Filtrada por el cliente seleccionado y la compañía activa.',
+    )
     descripcion = fields.Char('Descripcion')
     fecha_boleta = fields.Date('Fecha boleta')
     cheque = fields.Char('Cheque')
